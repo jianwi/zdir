@@ -12,7 +12,7 @@
 	else{
 		$thedir = $config['thedir'];
 	}
-	
+
 	$i = 0;
 
 	//获取目录
@@ -21,7 +21,7 @@
 	$dir = strip_tags($dir);
 	$dir = str_replace("\\","/",$dir);
 	$rel_path = $thedir."/".$dir;
-	
+
 	//获取markdown文件地址
 	//判断是否是首页
 	function is_home(){
@@ -33,8 +33,8 @@
 			return FALSE;
 		}
 	}
-	
-	
+
+
 	//echo $readme;
 	//对目录进行过滤
 	if((stripos($dir,'./') === 0) || (stripos($dir,'../')) || (stripos($dir,'../') === 0) || (stripos($dir,'..') === 0) || (stripos($dir,'..'))){
@@ -94,7 +94,7 @@
 		//分割目录
 		$dirarr = explode("/",$dir);
 		$dirnum = count($dirarr);
-		
+
 		#var_dump($dirarr);
 		if($dirnum == 2) {
 			$updir = '/';
@@ -102,10 +102,10 @@
 		else{
 			$updir = '';
 			for ( $i=1; $i < ($dirnum - 1); $i++ )
-			{ 
+			{
 				$next = $i + 1;
 				$updir = $updir.'/'.$dirarr[$i];
-				
+
 			}
 			$updir = '/?dir='.$updir;
 		}
@@ -122,36 +122,36 @@
     <!--面包屑导航-->
 	<div id="navigation" class = "layui-hide-xs">
 		<div class="layui-container">
-			<div class="layui-row">
+			<div class="layui-row" hidden>
 				<!--滚动消息-->
-				<div id = "msg" class="layui-col-lg12">
-					<i class="layui-icon layui-icon-notice" style="color: #FF5722;font-weight:bold;"></i> 
+				<div id = "msg" class="layui-col-lg12" >
+					<i class="layui-icon layui-icon-notice" style="color: #FF5722;font-weight:bold;"></i>
 					<span id = "msg-content"></span>
 				</div>
 				<!--滚动消息END-->
 				<div class="layui-col-lg12">
 					<p>
-						当前位置：<a href="./">首页</a> 
+						当前位置：<a href="./">首页</a>
 						<!--遍历导航-->
 						<?php foreach( $navigation as $menu )
 						{
 							$menu = con_coding($menu);
 							$remenu = $remenu.'/'.$menu;
-							
+
 							if($remenu == '/'){
 								$remenu = $menu;
 							}
 						?>
-						
-						<a href="./?dir=<?php echo $remenu; ?>"><?php echo $menu; ?></a> / 
+
+						<a href="./?dir=<?php echo $remenu; ?>"><?php echo $menu; ?></a> /
 						<?php } ?>
 					</p>
 				</div>
 				<!--使用说明-->
-				<?php 
+				<?php
 				//判断readme文件是否存在
 					$readme_dir = $fullpath = $thedir.'/'.$dir.'/'.$showdir;
-					if( is_file($readme_dir.'/readme.md') || (is_file($readme_dir.'/README.md')) )	{	
+					if( is_file($readme_dir.'/readme.md') || (is_file($readme_dir.'/README.md')) )	{
 					$readme = con_coding($readme);
 				?>
 				<div class="layui-col-lg12" style = "margin-top:1em;">
@@ -190,7 +190,7 @@
 					      <th class = "layui-hide-xs">修改时间</th>
 					      <th>文件大小</th>
 					      <th class = "layui-hide-xs layui-hide-sm layui-show-md-block">操作</th>
-					    </tr> 
+					    </tr>
 					  </thead>
 					  <tbody>
 					    <?php foreach( $listdir as $showdir ) {
@@ -202,7 +202,7 @@
 						    $fullpath = str_replace("//","/",$fullpath);
 						    $fullpath = str_replace("//","/",$fullpath);
 						    //$fullpath = con_coding($fullpath);
-						    
+
 						    //var_dump($fullpath);
 						    //获取文件修改时间
 						    $ctime = filemtime($fullpath);
@@ -222,7 +222,7 @@
 							    else{
 								    $url = "./?dir=".$dir.'/'.$showdir;
 							    }
-							    
+
 							    $ico = "fa fa-folder-open";
 							    $fsize = '-';
 							    //返回类型
@@ -233,12 +233,12 @@
 							    //获取文件后缀
 						    	$suffix = explode(".",$showdir);
 						    	$suffix = end($suffix);
-						    	
+
 							    $url = '.'.$dir.'/'.$showdir;
 
 							    //根据不同后缀显示不同图标
 							    $ico = $zdir->ico($suffix);
-							    
+
 
 							    //获取文件大小
 							    $fsize = filesize($fullpath);
@@ -269,14 +269,14 @@
 							    else{
 								    $url = "./?dir=".$dir.'/'.$showdir;
 							    }
-							    
+
 							    $ico = "fa fa-folder-open";
 							    $fsize = '-';
 							    $type = 'dir';
 							}
 						    $i++;
 						?>
-						
+
 					    <tr id = "id<?php echo $i; ?>">
 						    <td>
 							    <?php
@@ -324,7 +324,7 @@
 									<!--音乐文件END-->
 									<!--如果是markdown文件-->
 									<?php if(($suffix == 'md') && ($suffix != null)){ ?>
-									<a href="javascript:;" class = "layui-btn layui-btn-xs layui-btn-normal" onclick = "newmd('<?php echo $fullpath; ?>')" title = "点击查看"><i class="fa fa-eye"></i></a> 
+									<a href="javascript:;" class = "layui-btn layui-btn-xs layui-btn-normal" onclick = "newmd('<?php echo $fullpath; ?>')" title = "点击查看"><i class="fa fa-eye"></i></a>
 									<?php }else if( $zdir->video($url) ){ ?>
 									<a class = "layui-btn layui-btn-xs layui-btn-normal" title = "点此播放" href="javascript:;" onclick = "video('<?php echo $url ?>')"><i class="fa fa-play-circle"></i></a>
 									<!--文本查看器-->
@@ -340,12 +340,12 @@
 							<!-- 操作例END -->
 					    </tr>
 					    <?php } ?>
-						
+
 					  </tbody>
 					</table>
 		    	</div>
 		  	</div>
-		</div> 
+		</div>
 	</div>
 <?php
 	//载入页脚
